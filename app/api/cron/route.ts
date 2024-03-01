@@ -5,6 +5,10 @@ import { scrapeAmazonProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 300; //5 minutes
+export const dynamic = 'force-dynamic'
+export const revalidat = 0
+
 export async function GET(){
     try {
         
@@ -37,7 +41,7 @@ export async function GET(){
             }
               
             const updatedProduct = await Product.findOneAndUpdate({
-                url: scrapedProduct.url,
+                url: product.url,
             }, product);
 
             //check for product status and send mail accordingly
